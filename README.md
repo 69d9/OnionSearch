@@ -8,11 +8,7 @@
 - Retrieve a custom number of **.onion** links based on user input.
 - Avoid getting blocked by rotating user agents randomly from a list.
 - Save results in a text file with a randomly generated name.
-
-## Usage 
-```bash
- python3 OnionSearch.py
-
+ 
 ## Requirements
 
 - Python 3.x
@@ -22,3 +18,7 @@
 You can install the required libraries with:
 
 pip install requests colorama
+
+## Usage 
+```bash
+ python3 OnionSearch.py
