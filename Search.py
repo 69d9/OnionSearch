@@ -1,8 +1,9 @@
 import requests
-import random, string
+import random
+import string
 import re
 from sys import exit
-from colorama import Fore
+from colorama import Fore, Style
 
 print(rf"""
 {Fore.YELLOW}
@@ -27,11 +28,11 @@ hjw \  |         |  /
   o   o   o      o   o    o  
 """)
 
-search = input("Enter your search : ")
+search = input(f"{Fore.CYAN}Please enter a keyword to search for onion links: {Style.RESET_ALL}")
 try:
-    number = int(input("how many websits you want? "))
+    number = int(input(f"{Fore.CYAN}How many onion links would you like to retrieve? {Style.RESET_ALL}"))
 except Exception as err:
-    print("\033[0;31;40m" , err)
+    print(f"{Fore.RED}Error: {err}{Style.RESET_ALL}")
     exit(0)
 
 if " " in search:
@@ -39,8 +40,8 @@ if " " in search:
 
 url = f"https://ahmia.fi/search/?q={search}"
 
-with open("user-agents.txt", "r+") as a: 
-    users = random.choice(a.readlines()).strip()  
+with open("user-agents.txt", "r+") as a:
+    users = random.choice(a.readlines()).strip()
 
 header = {
     "User-Agent": users
@@ -52,14 +53,15 @@ result_collected = 0
 webs = requests.get(url, headers=header).text
 reg = r"\w+\.onion"
 data = re.findall(reg, webs)
-filename = ''.join(random.choice(string.ascii_letters + string.digits)for i in range(5))
+filename = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(5))
 data = list(dict.fromkeys(data))
 
 with open(f"{filename}.txt", "a+") as f:
     for i in data:
         if result_collected >= results_limt:
-            break  
+            break
         i = i + "\n"
         f.write(i)
         result_collected += 1
-    print(f"\033[0;31;40m \nCompleted, saved in {filename}.txt")
+
+print(f"{Fore.BLUE}\nProcess completed successfully! All results have been saved in: {filename}.txt{Style.RESET_ALL}")
